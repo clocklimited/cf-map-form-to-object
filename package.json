@@ -2,7 +2,7 @@
   "author": "Ben Gourley",
   "name": "cf-map-form-to-object",
   "description": "Map form field values onto object properties, via matching form field and schema property names",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "tags": [],
   "repository": {
     "type": "git",
