@@ -23,7 +23,7 @@
     "node": ">=0.8"
   },
   "dependencies": {
-    "schemata": "0.0.8"
+    "schemata": "^2.0.2"
   },
   "devDependencies": {
     "mocha": "1",
