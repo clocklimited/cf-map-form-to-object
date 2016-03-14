@@ -112,7 +112,7 @@ describe('map-form-to-object()', function () {
     })
 
     it('should return empty array when no values are checked', function (done) {
-      $('body form').empty().append('<input type="checkbox" name="test" value="Text Input"')
+      $('body form').empty().append('<input type="checkbox" name="test" value="Text Input"/>')
       mapFormToObject($('form'), { test: true }).should.eql({ test: [] })
       done()
     })
