@@ -1,139 +1,190 @@
 require('./test-env')
-var mapFormToObject = require('../')
+const mapFormToObject = require('..')
+const schemata = require('schemata')
 
-describe('map-form-to-object()', function () {
+const idSchema = schemata({
+  name: 'Test',
+  properties: {
+    _id: {
+      type: String
+    }
+  }
+})
 
-  beforeEach(function (done) {
-    document.body.innerHTML = '<form></form>'
+const schema = schemata({
+  name: 'Test',
+  properties: {
+    test: {
+      type: String
+    }
+  }
+})
+
+const dateSchema = schemata({
+  name: 'Test',
+  properties: {
+    test: {
+      type: Date
+    }
+  }
+})
+
+const arraySchema = schemata({
+  name: 'Test',
+  properties: {
+    test: {
+      type: Array
+    }
+  }
+})
+
+const booleanSchema = schemata({
+  name: 'Test',
+  properties: {
+    test1: { type: Boolean },
+    test2: { type: Boolean }
+  }
+})
+
+
+describe('map-form-to-object()', () => {
+  beforeEach(done => {
+    $('body').html('<form></form>')
     done()
   })
 
-  it('should only return schema keys that have corresponding :input', function (done) {
-    document.querySelector('form').innerHTML = ''
-    mapFormToObject($('form'), { test: true }).should.eql({})
+  test(
+    'should only return schema keys that have corresponding :input',
+    done => {
+      $('body form').empty()
+      expect(mapFormToObject($('form'), schema)).toEqual({})
+      done()
+    }
+  )
+
+  test('should not map _id fields', done => {
+    $('body form').empty().append('<input type="text" name="_id" value="123" />')
+    expect(mapFormToObject($('form'), idSchema)).toEqual({})
     done()
   })
 
-  it('should not map _id fields', function (done) {
-    document.querySelector('form').innerHTML = '<input type="text" name="_id" value="123" />'
-    mapFormToObject($('form'), { _id: true }).should.eql({})
-    done()
-  })
-
-  describe('input[type=radio]', function () {
-    it('should only return the selected value', function (done) {
-      document.querySelector('form').innerHTML = '<input type="radio" name="test" value="Text Input" checked />'
-      mapFormToObject($('form'), { test: true }).should.eql({ test: 'Text Input' })
+  describe('input[type=radio]', () => {
+    test('should only return the selected value', done => {
+      $('body form').empty().append('<input type="radio" name="test" value="Text Input" checked />')
+      expect(mapFormToObject($('form'), schema)).toEqual({ test: 'Text Input' })
       done()
     })
 
-    it('should return null when no radio button is selected', function (done) {
-      document.querySelector('form').innerHTML = '<input type="radio" name="test" value="Text Input" />'
-      mapFormToObject($('form'), { test: true }).should.eql({ test: null })
+    test('should return null when no radio button is selected', done => {
+      $('body form').empty().append('<input type="radio" name="test" value="Text Input" />')
+      expect(mapFormToObject($('form'), schema)).toEqual({ test: null })
       done()
     })
   })
 
-  describe('select', function () {
-
-    it('should only return the selected value', function (done) {
-      document.querySelector('form').innerHTML =
+  describe('select', () => {
+    test('should only return the selected value', done => {
+      $('body form').empty().append(
         '<select name="test"><option>Not this option</option>' +
-        '<option selected="selected">Text Input</option></select>'
+        '<option selected="selected">Text Input</option></select>')
 
-      mapFormToObject($('form'), { test: true }).should.eql({ test: 'Text Input' })
-      done()
-    })
-
-  })
-
-  describe('input[type=text]', function () {
-
-    it('should return text value', function (done) {
-      document.querySelector('form').innerHTML = '<input type="text" name="test" value="Text Input" />'
-      mapFormToObject($('form'), { test: true }).should.eql({ test: 'Text Input' })
-      done()
-    })
-
-    it('should trim whitespace from input', function (done) {
-      document.querySelector('form').innerHTML = '<input type="text" name="test" value=" \t  Text Input   \n " />'
-      mapFormToObject($('form'), { test: true }).should.eql({ test: 'Text Input' })
-      done()
-    })
-
-    it('should return null from and empty input', function (done) {
-      document.querySelector('form').innerHTML = '<input type="text" name="test" value="" />'
-      mapFormToObject($('form'), { test: true }).should.eql({ test: null })
-      done()
-    })
-
-
-    it('should correctly coerce date properties for a GMT/BWT date', function (done) {
-      document.querySelector('form').innerHTML = '<input type="text" name="test" value="20 Jan 2013, 10:02 />'
-      var result = mapFormToObject($('form'), { test: { type: Date } }).test
-      result.should.be.instanceOf(Date)
-
-      result.toISOString().should.equal('2013-01-20T10:02:00.000Z')
-      done()
-    })
-
-    it('should correctly coerce date properties for a BST date', function (done) {
-      document.querySelector('form').innerHTML = '<input type="text" name="test" value="Saturday 27 Apri 2013, 10:02" />'
-      var result = mapFormToObject($('form'), { test: { type: Date } }).test
-      result.should.be.instanceOf(Date)
-
-      result.toISOString().should.equal('2013-04-27T09:02:00.000Z')
+      expect(mapFormToObject($('form'), schema)).toEqual({ test: 'Text Input' })
       done()
     })
   })
 
-  describe('textarea', function () {
-
-    it('should return text value', function (done) {
-      document.querySelector('form').innerHTML = '<textarea name="test">Text Input</textarea>'
-      mapFormToObject($('form'), { test: true }).should.eql({ test: 'Text Input' })
+  describe('input[type=text]', () => {
+    test('should return text value', done => {
+      $('body form').empty().append('<input type="text" name="test" value="Text Input" />')
+      expect(mapFormToObject($('form'), schema)).toEqual({ test: 'Text Input' })
       done()
     })
 
-    it('should trim whitespace', function (done) {
-      document.querySelector('form').innerHTML = '<textarea name="test"> \t Text Input   \n   </textarea>'
-      mapFormToObject($('form'), { test: true }).should.eql({ test: 'Text Input' })
+    test('should trim whitespace from input', done => {
+      $('body form').empty().append('<input type="text" name="test" value=" \t  Text Input   \n  " />')
+      expect(mapFormToObject($('form'), schema)).toEqual({ test: 'Text Input' })
       done()
     })
 
+    test('should return null from and empty input', done => {
+      $('body form').empty().append('<input type="text" name="test" value="" />')
+      expect(mapFormToObject($('form'), schema)).toEqual({ test: null })
+      done()
+    })
+
+    test(
+      'should correctly coerce date properties for a GMT/BWT date',
+      done => {
+        $('body form').empty().append('<input type="text" name="test" value="20 Jan 2013, 10:02" />')
+        var result = mapFormToObject($('form'), dateSchema).test
+        expect(result).toBeInstanceOf(Date)
+
+        expect(result.toISOString()).toBe('2013-01-20T10:02:00.000Z')
+        done()
+      }
+    )
+
+    test(
+      'should correctly coerce date properties for a BST date',
+      done => {
+        $('body form').empty().append('<input type="text" name="test" value="Saturday 27 April 2013, 10:02" />')
+        var result = mapFormToObject($('form'), dateSchema).test
+        expect(result).toBeInstanceOf(Date)
+
+        expect(result.toISOString()).toBe('2013-04-27T09:02:00.000Z')
+        done()
+      }
+    )
   })
 
-  describe('input[type=checkbox]', function () {
-
-    it('should return array of values when checked', function (done) {
-      document.querySelector('form').innerHTML = '<input type="checkbox" name="test" value="Text Input checked="checked" />'
-      mapFormToObject($('form'), { test: true }).should.eql({ test: [ 'Text Input' ] })
+  describe('textarea', () => {
+    test('should return text value', done => {
+      $('body form').empty().append('<textarea name="test">Text Input</textarea>')
+      expect(mapFormToObject($('form'), schema)).toEqual({ test: 'Text Input' })
       done()
     })
 
-    it('should return empty array when no values are checked', function (done) {
-      document.querySelector('form').innerHTML = '<input type="checkbox" name="test" value="Text Input"/>'
-      mapFormToObject($('form'), { test: true }).should.eql({ test: [] })
+    test('should trim whitespace', done => {
+      $('body form').empty().append('<textarea name="test"> \t Text Input   \n   </textarea>')
+      expect(mapFormToObject($('form'), schema)).toEqual({ test: 'Text Input' })
+      done()
+    })
+  })
+
+  describe('input[type=checkbox]', () => {
+    test('should return array of values when checked', done => {
+      $('body form').empty().append('<input type="checkbox" name="test" value="Text Input" checked="checked" />')
+      expect(mapFormToObject($('form'), arraySchema)).toEqual({ test: [ 'Text Input' ] })
       done()
     })
 
-    it('should return an array when there are multi checkboxes with the same name', function (done) {
-
-      document.querySelector('form').innerHTML = '<input type="checkbox" name="test" value="value1" checked="checked" />' + '<input type="checkbox" name="test" value="value2" checked="checked" />'
-
-      mapFormToObject($('form'), { test: Array })
-        .should.eql({ test: ['value1', 'value2'] })
+    test('should return empty array when no values are checked', done => {
+      $('body form').empty().append('<input type="checkbox" name="test" value="Text Input"/>')
+      expect(mapFormToObject($('form'), arraySchema)).toEqual({ test: [] })
       done()
     })
 
-    it('should return a boolean value only if the schema property has a boolean type annotation', function (done) {
-      document.querySelector('form').innerHTML = '<input type="checkbox" name="test1" value="hello" checked="checked" /><input type="checkbox" name="test2" value="hello" />'
-      mapFormToObject($('form'),
-        { test1: { type: Boolean }
-        , test2: { type: Boolean }
-        }).should.eql({ test1: true, test2: false })
-      done()
-    })
+    test(
+      'should return an array when there are multi checkboxes with the same name',
+      done => {
+        $('body form').empty()
+          .append('<input type="checkbox" name="test" value="value1" checked="checked" />' +
+            '<input type="checkbox" name="test" value="value2" checked="checked" />')
 
+        expect(mapFormToObject($('form'), arraySchema)).toEqual({ test: [ 'value1', 'value2' ] })
+        done()
+      }
+    )
+
+    test(
+      'should return a boolean value only if the schema property has a boolean type annotation',
+      done => {
+        $('body form').empty()
+          .append('<input type="checkbox" name="test1" value="hello" checked="checked" />')
+          .append('<input type="checkbox" name="test2" value="hello" />')
+        expect(mapFormToObject($('form'), booleanSchema)).toEqual({ test1: true, test2: false })
+        done()
+      }
+    )
   })
 })
