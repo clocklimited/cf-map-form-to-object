@@ -1,7 +1,5 @@
-var jsdom = require('jsdom').jsdom
-
-global.window = jsdom('<html><body></body></html>').createWindow()
-
-global.window.$ = window.jQuery = global.jQuery = global.$ = require('jquery-latest').create(global.window)
-global.document = window.document
-global.addEventListener = global.window.addEventListener
+const jsdom = require('jsdom')
+const { JSDOM } = jsdom
+const dom = new JSDOM('<html><body></body></html>')
+const jquery = require('../jquery-3.2.1.min')
+$ = jquery
