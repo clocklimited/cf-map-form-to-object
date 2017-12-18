@@ -4,34 +4,30 @@
   "description": "Map form field values onto object properties, via matching form field and schema property names",
   "version": "0.1.1",
   "tags": [],
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:clocklimited/cf-map-form-to-object"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
-  },
+  "files": [
+    "map-form-to-object.js"
+  ],
   "main": "map-form-to-object.js",
   "scripts": {
-    "lint": "./node_modules/.bin/jshint . --reporter=./node_modules/jshint-full-path/index.js",
-    "pretest": "npm run-script lint",
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -R spec -r should",
-    "posttest": "./node_modules/.bin/istanbul check-coverage && rm -rf coverage",
-    "prepublish": "npm test && npm prune"
+    "lint": "eslint --fix -f unix .",
+    "pretest": "npm run lint",
+    "test": "jest",
+    "prepublish": "npm test"
   },
   "engines": {
-    "node": ">=0.8"
+    "node": ">=6.0.0"
   },
   "dependencies": {
-    "schemata": "^2.0.2"
+    "schemata": "^6.0.0"
   },
   "devDependencies": {
-    "mocha": "1",
-    "should": "2",
-    "istanbul": "0",
-    "jshint": "2",
-    "jshint-full-path": "0",
-    "jsdom": "~0.8.8",
-    "jquery-latest": "~1.9.0"
+    "eslint": "^4.13.1",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^22.0.0",
+    "jsdom": "^11.5.1"
   }
 }

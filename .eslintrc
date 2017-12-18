@@ -1,0 +1,22 @@
+{
+  "extends": "standard",
+  "globals": {
+    "fetch": true,
+    "describe": true,
+    "expect": true,
+    "it": true,
+    "Backbone": true
+  },
+  "rules": {
+    "jsx-quotes": [2, "prefer-double"],
+    "object-curly-spacing": [ "error", "always" ],
+    "array-bracket-spacing": [ "error", "always" ]
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "mocha": true,
+    "jquery": true,
+    "browser": true
+  }
+}
