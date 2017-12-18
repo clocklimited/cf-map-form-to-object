@@ -1,7 +1,6 @@
 module.exports = mapFormToObject
 
-var schemata = require('schemata')()
-
+var schemata = require('schemata')
 /*
  * Takes a jQuery `form` object and extracts values for `schema` properties.
  */
