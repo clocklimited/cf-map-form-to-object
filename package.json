@@ -33,6 +33,6 @@
     "testURL": "http://localhost/"
   },
   "peerDependencies": {
-    "schemata": ">=6"
+    "@clocklimited/schemata": ">=8"
   }
 }

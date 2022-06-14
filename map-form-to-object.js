@@ -1,6 +1,6 @@
 module.exports = mapFormToObject
 
-const schemata = require('schemata')
+const schemata = require('@clocklimited/schemata')
 /*
  * Takes a jQuery `form` object and extracts values for `schema` properties.
  */
