@@ -1,18 +1,18 @@
 module.exports = mapFormToObject
 
-var schemata = require('schemata')
+const schemata = require('@clocklimited/schemata')
 /*
  * Takes a jQuery `form` object and extracts values for `schema` properties.
  */
 function mapFormToObject (form, schema) {
-  var formData = {}
+  const formData = {}
   const properties = schema.getProperties()
 
   Object.keys(properties).forEach(function (key) {
     // Don't ever update the _id property
     if (key === '_id') return
 
-    var formValue = getValue(form, key, properties[key].type)
+    let formValue = getValue(form, key, properties[key].type)
     if (formValue !== undefined) {
       // Trim off any extra whitespace
       if (typeof formValue === 'string') {
@@ -34,7 +34,7 @@ function mapFormToObject (form, schema) {
  * the schema property name `key`.
  */
 function getValue (form, key, type) {
-  var $input = form.find(':input[name=' + key + ']')
+  const $input = form.find(':input[name=' + key + ']')
 
   switch ($input.attr('type')) {
     case 'radio':

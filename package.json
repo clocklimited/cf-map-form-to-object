@@ -1,6 +1,6 @@
 {
   "author": "Ben Gourley",
-  "name": "cf-map-form-to-object",
+  "name": "@clocklimited/cf-map-form-to-object",
   "description": "Map form field values onto object properties, via matching form field and schema property names",
   "version": "1.0.0",
   "tags": [],
@@ -9,25 +9,31 @@
   ],
   "main": "map-form-to-object.js",
   "scripts": {
-    "lint": "eslint --fix -f unix .",
+    "lint": "eslint -f unix .",
     "pretest": "npm run lint",
     "test": "jest",
     "prepublish": "npm test"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=14.0.0"
   },
-  "dependencies": {
-    "schemata": "^6.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "eslint": "^4.13.1",
-    "eslint-config-standard": "^11.0.0-beta.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
+    "@clocklimited/schemata": "^8.0.0",
+    "eslint": "^7.27.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-standard": "^5.0.0",
     "jest": "^22.0.0",
     "jsdom": "^11.5.1"
+  },
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/"
+  },
+  "peerDependencies": {
+    "@clocklimited/schemata": ">=8"
   }
 }

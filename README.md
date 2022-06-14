@@ -2,6 +2,8 @@
 
 Map form field values onto object properties, via matching form field and schema property names
 
+[![Build Status](https://travis-ci.com/clocklimited/cf-map-form-to-object.svg?branch=master)](https://travis-ci.com/clocklimited/cf-map-form-to-object)
+
 ## Installation
 
     npm install --save cf-map-form-to-object

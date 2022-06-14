@@ -1,6 +1,6 @@
 require('./test-env')
 const mapFormToObject = require('..')
-const schemata = require('schemata')
+const schemata = require('@clocklimited/schemata')
 
 const idSchema = schemata({
   name: 'Test',
@@ -45,7 +45,6 @@ const booleanSchema = schemata({
     test2: { type: Boolean }
   }
 })
-
 
 describe('map-form-to-object()', () => {
   beforeEach(done => {
@@ -116,7 +115,7 @@ describe('map-form-to-object()', () => {
       'should correctly coerce date properties for a GMT/BWT date',
       done => {
         $('body form').empty().append('<input type="text" name="test" value="20 Jan 2013, 10:02" />')
-        var result = mapFormToObject($('form'), dateSchema).test
+        const result = mapFormToObject($('form'), dateSchema).test
         expect(result).toBeInstanceOf(Date)
 
         expect(result.toISOString()).toBe('2013-01-20T10:02:00.000Z')
@@ -127,11 +126,11 @@ describe('map-form-to-object()', () => {
     test(
       'should correctly coerce date properties for a BST date',
       done => {
-        $('body form').empty().append('<input type="text" name="test" value="Saturday 27 April 2013, 10:02" />')
-        var result = mapFormToObject($('form'), dateSchema).test
+        $('body form').empty().append('<input type="text" name="test" value="Tue Jun 14 2022 09:26:56 GMT+0100 (British Summer Time)" />')
+        const result = mapFormToObject($('form'), dateSchema).test
         expect(result).toBeInstanceOf(Date)
 
-        expect(result.toISOString()).toBe('2013-04-27T09:02:00.000Z')
+        expect(result.toISOString()).toBe('2022-06-14T08:26:56.000Z')
         done()
       }
     )
