@@ -46,7 +46,6 @@ const booleanSchema = schemata({
   }
 })
 
-
 describe('map-form-to-object()', () => {
   beforeEach(done => {
     $('body').html('<form></form>')
@@ -116,7 +115,7 @@ describe('map-form-to-object()', () => {
       'should correctly coerce date properties for a GMT/BWT date',
       done => {
         $('body form').empty().append('<input type="text" name="test" value="20 Jan 2013, 10:02" />')
-        var result = mapFormToObject($('form'), dateSchema).test
+        const result = mapFormToObject($('form'), dateSchema).test
         expect(result).toBeInstanceOf(Date)
 
         expect(result.toISOString()).toBe('2013-01-20T10:02:00.000Z')
@@ -128,7 +127,7 @@ describe('map-form-to-object()', () => {
       'should correctly coerce date properties for a BST date',
       done => {
         $('body form').empty().append('<input type="text" name="test" value="Saturday 27 April 2013, 10:02" />')
-        var result = mapFormToObject($('form'), dateSchema).test
+        const result = mapFormToObject($('form'), dateSchema).test
         expect(result).toBeInstanceOf(Date)
 
         expect(result.toISOString()).toBe('2013-04-27T09:02:00.000Z')
