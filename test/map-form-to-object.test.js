@@ -1,6 +1,6 @@
 require('./test-env')
 const mapFormToObject = require('..')
-const schemata = require('schemata')
+const schemata = require('@clocklimited/schemata')
 
 const idSchema = schemata({
   name: 'Test',

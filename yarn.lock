@@ -30,6 +30,15 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
+"@clocklimited/schemata@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@clocklimited/schemata/-/schemata-8.0.0.tgz#42588dc92667c4c84fcde28a7aa0c302c0df62f2"
+  integrity sha512-Eqfme5rPK0D9diPiDFffz41YsEMsn0TZntgS39F7NGzPegMQHFAAG5CyiHoan0U2wuVQuMk4F+6HHgCKCZko4w==
+  dependencies:
+    is-primitive "^3.0.0"
+    lodash.clonedeep "^4.5.0"
+    util.promisify "^1.1.1"
+
 "@eslint/eslintrc@^0.4.1":
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.4.1.tgz#442763b88cecbe3ee0ec7ca6d6dd6168550cbf14"
@@ -3458,15 +3467,6 @@ sax@^1.2.4:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-schemata@>=6:
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/schemata/-/schemata-7.0.3.tgz#ccad780be9e120b3a940a2018fcd1d8f1a4e5501"
-  integrity sha512-6iHbDZY8EKA4WhtdcIyUaau8DCZz2NhBWucRD7nXbB21NiSf+ssEwZVnPNP4whfBvWTSX2oqI9Y3EfsgxjbWwg==
-  dependencies:
-    is-primitive "^3.0.0"
-    lodash.clonedeep "^4.5.0"
-    util.promisify "^1.0.0"
-
 "semver@2 || 3 || 4 || 5", semver@^5.3.0, semver@^5.5.0:
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
@@ -4011,7 +4011,7 @@ util-deprecate@~1.0.1:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
-util.promisify@^1.0.0:
+util.promisify@^1.0.0, util.promisify@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/util.promisify/-/util.promisify-1.1.1.tgz#77832f57ced2c9478174149cae9b96e9918cd54b"
   integrity sha512-/s3UsZUrIfa6xDhr7zZhnE9SLQ5RIXyYfiVnMMyMDzOc8WhWN4Nbh36H842OyurKbCDAesZOJaVyvmSl6fhGQw==
