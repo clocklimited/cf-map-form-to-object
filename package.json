@@ -3,6 +3,7 @@
   "name": "@clocklimited/cf-map-form-to-object",
   "description": "Map form field values onto object properties, via matching form field and schema property names",
   "version": "1.0.0",
+  "license": "BSD-2-Clause",
   "tags": [],
   "files": [
     "map-form-to-object.js"
